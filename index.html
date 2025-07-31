@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Jyoti Bali - Portfolio</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --text-light: #ecf0f1;
+            --text-dark: #2c3e50;
+            --bg-light: #f8f9fa;
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(44, 62, 80, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(44, 62, 80, 0.98);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--text-light);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-menu a:before {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover:before {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: var(--gradient-1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="a" cx="50%" cy="50%"><stop offset="0%" stop-color="rgba(255,255,255,0.1)"/><stop offset="100%" stop-color="rgba(255,255,255,0)"/></radialGradient></defs><circle cx="200" cy="200" r="100" fill="url(%23a)"/><circle cx="800" cy="300" r="150" fill="url(%23a)"/><circle cx="300" cy="700" r="120" fill="url(%23a)"/><circle cx="900" cy="800" r="80" fill="url(%23a)"/></svg>') no-repeat center;
+            background-size: cover;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        .hero-content {
+            z-index: 2;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .hero .tagline {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--accent-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(231, 76, 60, 0.3);
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 5rem 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background: var(--secondary-color);
+        }
+
+        /* About Section */
+        .about {
+            background: var(--bg-light);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Experience Section */
+        .experience-timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .experience-timeline:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--secondary-color);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding: 2rem 0 2rem 2rem;
+            border-left: 2px solid transparent;
+        }
+
+        .timeline-item:before {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 2rem;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--secondary-color);
+        }
+
+        .timeline-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-left: 1rem;
+        }
+
+        .timeline-date {
+            color: var(--accent-color);
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Research Section */
+        .research {
+            background: var(--bg-light);
+        }
+
+        .research-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .research-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .research-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-2);
+        }
+
+        .research-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .research-icon {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        /* Publications Section */
+        .publications-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 3rem;
+            gap: 1rem;
+        }
+
+        .tab-button {
+            padding: 10px 20px;
+            background: transparent;
+            border: 2px solid var(--secondary-color);
+            color: var(--secondary-color);
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab-button.active,
+        .tab-button:hover {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        .publications-content {
+            display: none;
+        }
+
+        .publications-content.active {
+            display: block;
+        }
+
+        .publication-item {
+            background: white;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--secondary-color);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        /* Patents Section */
+        .patents {
+            background: var(--bg-light);
+        }
+
+        .patents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .patent-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .patent-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .patent-status {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .patent-status.granted {
+            background: #27ae60;
+            color: white;
+        }
+
+        .patent-status.published {
+            background: #f39c12;
+            color: white;
+        }
+
+        .patent-status.filed {
+            background: #3498db;
+            color: white;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: var(--gradient-3);
+            color: white;
+            text-align: center;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .contact-item {
+            padding: 2rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .contact-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary-color);
+            color: var(--text-light);
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInOnScroll 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeInOnScroll {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="logo">Dr. Jyoti Bali</div>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#research">Research</a></li>
+                <li><a href="#publications">Publications</a></li>
+                <li><a href="#patents">Patents</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Dr. Jyoti Bali</h1>
+            <p class="subtitle">Associate Professor & Program Head</p>
+            <p class="tagline">Expert in Low-Power Systems, FPGA Design & Intelligent Automation</p>
+            <a href="#about" class="cta-button">Explore My Work</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section about" id="about">
+        <div class="container">
+            <h2 class="section-title fade-in">About Me</h2>
+            <div class="about-content fade-in">
+                <div class="about-text">
+                    <p>With over 25 years of teaching experience and 15 years in research, I am passionate about advancing the frontiers of embedded systems, FPGA-based solutions, and intelligent automation. My Ph.D. research focused on "Low-Power, High-Performance Algorithms for Sleep Apnea Detection," combining healthcare technology with cutting-edge system design.</p>
+                    <p>Currently serving as Associate Professor and Program Head at MIT Vishwaprayag University, I lead initiatives in Edge AI solutions and state-of-the-art laboratory development. My work spans across multiple domains including Electronics, Mechatronics, Automation, and Computer Science.</p>
+                </div>
+            </div>
+            
+            <div class="stats-grid fade-in">
+                <div class="stat-card">
+                    <div class="stat-number">25+</div>
+                    <div>Years Teaching</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">15+</div>
+                    <div>Years Research</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">28</div>
+                    <div>Publications</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">9</div>
+                    <div>Patents</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section class="section experience" id="experience">
+        <div class="container">
+            <h2 class="section-title fade-in">Professional Experience</h2>
+            <div class="experience-timeline fade-in">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">October 2023 - Present</div>
+                        <h3>Associate Professor & Program Head</h3>
+                        <p>School of Computing, MIT Vishwaprayag University, Maharashtra</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">June 2023 - October 2023</div>
+                        <h3>Associate Professor</h3>
+                        <p>Dept of Robotics and Automation, Symbiosis Institute of Technology, Pune</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">June 2010 - February 2023</div>
+                        <h3>Assistant Professor</h3>
+                        <p>KLE Technological University, Hubballi - Research Coordinator, QMS, NAAC/NBA</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">April 1999 - June 2010</div>
+                        <h3>Deputy Manager (Training)</h3>
+                        <p>NTTF, Nettur Technical Training Foundation, Dharwad</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Research Section -->
+    <section class="section research" id="research">
+        <div class="container">
+            <h2 class="section-title fade-in">Research Interests</h2>
+            <div class="research-grid fade-in">
+                <div class="research-card">
+                    <div class="research-icon"><i class="fas fa-microchip"></i></div>
+                    <h3>FPGA Hardware Accelerators</h3>
+                    <p>Development of hardware accelerators for autonomous real-time solutions and AI applications</p>
+                </div>
+                <div class="research-card">
+                    <div class="research-icon"><i class="fas fa-bolt"></i></div>
+                    <h3>Low-Power System Design</h3>
+                    <p>Algorithm design for smart systems with focus on power efficiency and high performance</p>
+                </div>
+                <div class="research-card">
+                    <div class="research-icon"><i class="fas fa-robot"></i></div>
+                    <h3>Intelligent Automation</h3>
+                    <p>Smart embedded solutions for autonomous systems and machine health monitoring</p>
+                </div>
+                <div class="research-card">
+                    <div class="research-icon"><i class="fas fa-brain"></i></div>
+                    <h3>AI & Machine Learning</h3>
+                    <p>Intelligent decision-making systems using Fuzzy logic, ANN, and Machine Learning</p>
+                </div>
+                <div class="research-card">
+                    <div class="research-icon"><i class="fas fa-heartbeat"></i></div>
+                    <h3>Healthcare Technology</h3>
+                    <p>Smart system solutions for medical applications, including sleep apnea detection</p>
+                </div>
+                <div class="research-card">
+                    <div class="research-icon"><i class="fas fa-handshake"></i></div>
+                    <h3>Human-Robot Collaboration</h3>
+                    <p>Smart solutions based on collaborative robotics and material handling applications</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Publications Section -->
+    <section class="section publications" id="publications">
+        <div class="container">
+            <h2 class="section-title fade-in">Publications & Research Output</h2>
+            
+            <div class="publications-tabs fade-in">
+                <button class="tab-button active" onclick="showTab('journals')">Journal Articles (14)</button>
+                <button class="tab-button" onclick="showTab('conferences')">Conferences (10)</button>
+                <button class="tab-button" onclick="showTab('books')">Book Chapters (4)</button>
+            </div>
+
+            <div id="journals" class="publications-content active fade-in">
+                <div class="publication-item">
+                    <h4>Detection of Sleep Apnea Disorder Using an Adaptive Neuro-Fuzzy Classification Method</h4>
+                    <p><strong>Journal:</strong> Journal of Computational and Theoretical Nanoscience (2020)</p>
+                </div>
+                <div class="publication-item">
+                    <h4>Power-efficient Strategies for Sensing in Autonomous Mobile Robots</h4>
+                    <p><strong>Journal:</strong> IOP Conference Series: Materials Science and Engineering (2021)</p>
+                </div>
+                <div class="publication-item">
+                    <h4>Advanced Heterogeneous Ensemble Voting Mechanism with GRFOA based Feature Selection</h4>
+                    <p><strong>Journal:</strong> International Journal of Computing and Digital Systems (2024)</p>
+                </div>
+            </div>
+
+            <div id="conferences" class="publications-content fade-in">
+                <div class="publication-item">
+                    <h4>FPGA-Based Hardware Acceleration Using PYNQ-Z2</h4>
+                    <p><strong>Conference:</strong> Second International Conference on Electrical, Electronics, Information and Communication Technologies (2023)</p>
+                </div>
+                <div class="publication-item">
+                    <h4>Implementation of Sensor Fusion for a Mobile Robot Application</h4>
+                    <p><strong>Conference:</strong> International Conference on Recent Trends on Electronics, Information, Communication and Technology (2021)</p>
+                </div>
+            </div>
+
+            <div id="books" class="publications-content fade-in">
+                <div class="publication-item">
+                    <h4>Efficient ANN Algorithms for Sleep Apnea Detection Using Transform Methods</h4>
+                    <p><strong>Book:</strong> Advancement of Machine Intelligence in Interactive Medical Image Analysis, Springer (2020)</p>
+                </div>
+                <div class="publication-item">
+                    <h4>Disease Prediction Using Data Mining and Machine Learning Techniques</h4>
+                    <p><strong>Book:</strong> Advanced Prognostic Predictive Modelling in Healthcare Data Analytics, Springer (2021)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Patents Section -->
+    <section class="section patents" id="patents">
+        <div class="container">
+            <h2 class="section-title fade-in">Patents Portfolio</h2>
+            <div class="patents-grid fade-in">
+                <div class="patent-card">
+                    <span class="patent-status granted">Granted</span>
+                    <h3>Sleep Apnea Screening Tool</h3>
+                    <p>Australian Innovation Patent for clinical sleep apnea detection system</p>
+                </div>
+                <div class="patent-card">
+                    <span class="patent-status granted">Granted</span>
+                    <h3>3D Printing Innovation</h3>
+                    <p>Novel approach for advanced 3D printing technologies</p>
+                </div>
+                <div class="patent-card">
+                    <span class="patent-status granted">Granted</span>
+                    <h3>IoT-based 3D Printing</h3>
+                    <p>Reliable 3D printing system using IoT integration</p>
+                </div>
+                <div class="patent-card">
+                    <span class="patent-status published">Published</span>
+                    <h3>Gesture-based Smart Vocalizer</h3>
+                    <p>Innovative communication system using gesture recognition</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section contact" id="contact">
+        <div class="container">
+            <h2 class="section-title fade-in">Get In Touch</h2>
+            <p class="fade-in">Let's collaborate on innovative research projects and educational initiatives</p>
+            
+            <div class="contact-info fade-in">
+                <div class="contact-item">
+                    <div class="contact-icon"><i class="fas fa-university"></i></div>
+                    <h3>Institution</h3>
+                    <p>MIT Vishwaprayag University<br>Solapur, Maharashtra</p>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon"><i class="fas fa-graduation-cap"></i></div>
+                    <h3>Research Profile</h3>
+                    <p>Google Scholar H-Index: 7<br>Scopus H-Index: 5</p>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon"><i class="fas fa-trophy"></i></div>
+                    <h3>Qualifications</h3>
+                    <p>UGC CSIR NET Qualified<br>KSET Electronic Science</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Dr. Jyoti Bali. All rights reserved. | Advancing Technology Through Innovation</p>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Publications tabs
+        function showTab(tabName) {
+            // Hide all content
+            document.querySelectorAll('.publications-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Remove active class from all buttons
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            // Show selected content and mark button as active
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all elements with fade-in class
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Counter animation for stats
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number');
+            counters.forEach(counter => {
+                const target = parseInt(counter.textContent.replace('+', ''));
+                let current = 0;
+                const increment = target / 50;
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        counter.textContent = target + (counter.textContent.includes('+') ? '+' : '');
+                        clearInterval(timer);
+                    } else {
+                        counter.textContent = Math.floor(current);
+                    }
+                }, 30);
+            });
+        }
+
+        // Trigger counter animation when stats section is visible
+        const statsSection = document.querySelector('.stats-grid');
+        const statsObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        if (statsSection) {
+            statsObserver.observe(statsSection);
+        }
+    </script>
+</body>
+</html>
